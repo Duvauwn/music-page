@@ -3,7 +3,8 @@ const timer = (() => {
     let minute = document.querySelector('.minute');
     let user = document.querySelector('#user');
     let colon = document.querySelector('#colon');
-    let display = document.querySelector('#display')
+    let display = document.querySelector('#display');
+    let body = document.querySelector('body');
 
     let button = document.querySelector('#start');
 
@@ -16,7 +17,6 @@ const timer = (() => {
 
     function deprecate() {
 
-        console.log(total);
         strS--;
         if (strS < 10) {
             second.textContent = '0' + strS;
@@ -33,13 +33,16 @@ const timer = (() => {
             minute.textContent = strM;
         }
         if (total == parseInt(user.value) * 60) {
-            display.style.border = '20px solid green';
+            display.style.border = '15px solid green';
+            display.style.backgroundColor = 'green';
         }
         else if (total == (parseInt(user.value) * 60) / 2) {
-            display.style.border = '20px solid yellow';
+            display.style.border = '15px solid yellow';
+            display.style.backgroundColor = 'yellow';
         }
         else if (total == ((parseInt(user.value) * 60)) / 4) {
-            display.style.border = '20px solid red';
+            display.style.border = '15px solid red';
+            display.style.backgroundColor = 'red';
         }
         total--
         return strS;
@@ -48,6 +51,8 @@ const timer = (() => {
     button.addEventListener('click', function () {
 
         total = (user.value) * 60;
+
+        body.classList.add('red');
 
         minute.textContent = parseInt(user.value);
         minute.textContent--;
