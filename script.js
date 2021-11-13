@@ -5,14 +5,17 @@ const timer = (() => {
     let colon = document.querySelector('#colon');
     let display = document.querySelector('#display');
     let body = document.querySelector('body');
+    let pause = document.querySelector('#pause');
 
     let button = document.querySelector('#start');
+    button.disabled = false;
 
     let strS = parseInt(second.textContent);
     let strM = minute.textContent;
 
     let start;
     let total;
+    let condition = true;
 
 
     function deprecate() {
@@ -44,11 +47,16 @@ const timer = (() => {
             display.style.border = '15px solid red';
             display.style.backgroundColor = 'red';
         }
+        if (condition == true) {
+            setTimeout(deprecate, 1000)
+        }
         total--
         return strS;
     };
 
     button.addEventListener('click', function () {
+
+        condition = true;
 
         total = (user.value) * 60;
 
@@ -56,10 +64,16 @@ const timer = (() => {
 
         minute.textContent = parseInt(user.value);
         minute.textContent--;
+
         colon.textContent = ':';
         strM = minute.textContent;
         button.disabled = true;
         strS = 60;
-        start = setInterval(deprecate, 1000);
+        start = setTimeout(deprecate, 1000);
     });
+
+    pause.addEventListener('click', function () {
+        condition = false;
+        button.disabled = false;
+    })
 })();
